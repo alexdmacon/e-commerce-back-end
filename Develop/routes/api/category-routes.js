@@ -3,6 +3,8 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
+  // find all categories
+  // be sure to include its associated Products
 router.get('/', async (req, res) => {
   try {
     const categoryData = await Category.findall({
@@ -12,10 +14,27 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // find all categories
-  // be sure to include its associated Products
 });
 
+// SAME THING USING PROMISES, WHICH I'M NOW REALIZING I SHOULD MAYBE BE DOING FOR ALL OF THESE.
+/* router.get('/', (req, res) => {
+  Category.findAll(
+    {
+      include: {
+        model: Product,
+        attributes: ['product_name']
+      }
+    }
+  )
+    .then(categoryData => res.json(categoryData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+}); */
+
+  // find one category by its `id` value
+  // be sure to include its associated Products
 router.get('/:id', async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
@@ -25,10 +44,9 @@ router.get('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json(err)
   }
-  // find one category by its `id` value
-  // be sure to include its associated Products
 });
 
+  // create a new category
 router.post('/', async (req, res) => {
   try {
     const categoryData = await Category.create(req.body);
@@ -36,10 +54,9 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-  // create a new category
 });
 
-
+  // update a category by its `id` value
 // NEED TO COME BACK TO THIS BECASUE I'M NOT REALLY SURE WHAT I'M DOING
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
@@ -51,12 +68,20 @@ router.put('/:id', async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-  // update a category by its `id` value
-
 });
 
-router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const categoryData = await Category.destroy({
+      where: {
+        id: req.params.id,
+      }
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err)
+  }
 });
 
 module.exports = router;
