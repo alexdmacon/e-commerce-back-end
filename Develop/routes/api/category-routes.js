@@ -8,6 +8,7 @@ const { Category, Product } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const categoryData = await Category.findAll({
+    subQuery: false,
      include: [{ model: Product }]
     });
     res.status(200).json(categoryData);
@@ -15,23 +16,6 @@ router.get('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-// SAME THING USING PROMISES, WHICH I'M NOW REALIZING I SHOULD MAYBE BE DOING FOR ALL OF THESE.
-/* router.get('/', (req, res) => {
-  Category.findAll(
-    {
-      include: {
-        model: Product,
-        attributes: ['product_name']
-      }
-    }
-  )
-    .then(categoryData => res.json(categoryData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-}); */
 
   // find one category by its `id` value
   // be sure to include its associated Products
