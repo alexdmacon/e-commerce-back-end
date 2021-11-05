@@ -1,7 +1,7 @@
 # e-commerce-back-end
 
 ## Description
-This is the back-end for a hypothetical e-commerce site I created to practice principles of object-relational mapping while working with Express.js API routes, MYSQL databases, and Sequelize. It was also an opportunity to familiarize myself with the basic—very, very basic—structure of how a real e-commerce platform might operate.
+This is the back-end for a hypothetical e-commerce site I created to practice principles of object-relational mapping while working with Express.js API routes, MYSQL databases, and Sequelize. Specifically, practicing how all those things interact with each other. It was also an opportunity to familiarize myself with the basic—very, very basic—structure of how a real e-commerce platform might operate.
 
 [Here's a link to a video demo showing it in action](https://drive.google.com/file/d/1W-B1UOb4iF-UaeItA2nuSJv-DQpth1KF/view)
 
